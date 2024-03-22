@@ -32,7 +32,7 @@ class ProductController extends Controller
         ]);
         $newProduct = Product::create($data);
         WebhookCall::create()
-            ->url('http://127.0.0.1:8000/webhooks') //put url dynamically after fetching it from webhook from webapp
+            ->url('http://127.0.0.1:8001/webhooks') //put url dynamically after fetching it from webhook from webapp
             ->payload([$newProduct])
             ->useSecret('one')
             ->dispatch();
@@ -60,7 +60,7 @@ class ProductController extends Controller
         $updatedProduct = Product::find($product->id);
 
         WebhookCall::create()
-            ->url('http://127.0.0.1:8000/webhooks') //put url dynamically after fetching it from webhook from webapp
+            ->url('http://127.0.0.1:8001/webhooks') //put url dynamically after fetching it from webhook from webapp
             ->payload([$updatedProduct])
             ->useSecret('one')
             ->dispatch();
@@ -71,7 +71,7 @@ class ProductController extends Controller
     {
         $product->delete();
         WebhookCall::create()
-            ->url('http://127.0.0.1:8000/webhooks')
+            ->url('http://127.0.0.1:8001/webhooks')
             ->payload([["key"=>1,"code"=>$product->code]])
             ->useSecret('one')
             ->dispatch();
