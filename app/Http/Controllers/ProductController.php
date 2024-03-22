@@ -10,7 +10,6 @@ class ProductController extends Controller
 {
     public function index()
     {
-
         $products = Product::orderBy('created_at')->paginate(8); //displays 8 products per page
         // $products = Product::all(); //display all products
         return view('products.productsTable', ['products' => $products]); //add the path of the view file; not the name of file in route
@@ -64,17 +63,20 @@ class ProductController extends Controller
             ->payload([$updatedProduct])
             ->useSecret('one')
             ->dispatch();
+
         return redirect('products')->with('success', 'Product updated successfully');
     }
 
     public function destroy(Product $product)
     {
         $product->delete();
+        
         WebhookCall::create()
             ->url('http://127.0.0.1:8001/webhooks')
             ->payload([["key"=>1,"code"=>$product->code]])
             ->useSecret('one')
             ->dispatch();
+
         return redirect('products')->with('success', 'Product deleted successfully');
     }
 }
