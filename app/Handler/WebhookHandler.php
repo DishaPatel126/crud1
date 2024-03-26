@@ -48,7 +48,6 @@ class WebhookHandler extends ProcessWebhookJob
         try {
             if (isset($count['code'])) {
                 $data = new Product;
-                $data->id = $count['id'];
                 $data->code = $count['code'];
                 $data->name = $count['name'];
                 $data->quantity = $count['quantity'];
@@ -74,7 +73,6 @@ class WebhookHandler extends ProcessWebhookJob
         logger("update product");
         logger($count);
         try {
-            $data->id = $count['id'];
             $data->code = $count['code'];
             $data->name = $count['name'];
             $data->quantity = $count['quantity'];
